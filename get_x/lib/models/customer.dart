@@ -15,7 +15,7 @@ class Customer{
       required this.address,
       required this.password,
       required this.dob});
-      
+
   Customer.empty()
       : name = "",
         email = "",
@@ -37,6 +37,7 @@ class Customer{
 
   Map<String, dynamic> toJson() {
     return {
+      "id": id,
       "name": name,
       "email": email,
       "password": password,
