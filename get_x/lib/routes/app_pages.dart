@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:get_x/modules/customers/customer_binding.dart';
-import 'package:get_x/modules/customers/customer_form.dart';
-import 'package:get_x/modules/home/home_page.dart';
-import 'package:get_x/modules/customers/customer_list_page.dart';
+import 'package:get_x/Modules/customers/customer_binding.dart';
+import 'package:get_x/Modules/customers/customer_form.dart';
+import 'package:get_x/Modules/home/home_page.dart';
+import 'package:get_x/Modules/customers/customer_list_page.dart';
 import 'package:get_x/routes/app_routes.dart';
 
 class AppPages {

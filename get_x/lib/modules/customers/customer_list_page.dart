@@ -5,14 +5,13 @@ import 'package:get/get.dart';
 import 'package:get_x/components/delete_customer_dialog.dart';
 import 'package:get_x/components/noti_bar.dart';
 import 'package:get_x/models/customer.dart';
-import 'package:get_x/modules/customers/customer_form.dart';
+import 'package:get_x/Modules/customers/customer_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get_x/modules/customers/customer_controller.dart';
+import 'package:get_x/Modules/customers/customer_controller.dart';
 
 class CustomerListPage extends StatelessWidget {
   final CustomerController customerController = Get.put(CustomerController());
   CustomerListPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CustomerController>(
@@ -28,7 +27,7 @@ class CustomerListPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           int more = controller.isMoreLoading.value ? 1 : 0;
-          return ListView.builder(
+          Widget listview = ListView.builder(
             controller: controller.scrollController,
             itemCount: controller.getCustomerList.length + more,
             itemBuilder: (context, index) {
@@ -36,6 +35,7 @@ class CustomerListPage extends StatelessWidget {
                 return const Center(child: Padding(padding: EdgeInsets.all(15),child: CircularProgressIndicator(),),);
               }
               Customer customer = controller.getCustomerList[index];
+              
               return Card(
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
@@ -89,6 +89,8 @@ class CustomerListPage extends StatelessWidget {
               );
             },
           );
+          
+          return listview;
         }),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {

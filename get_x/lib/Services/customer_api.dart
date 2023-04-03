@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:get/get.dart';
 import 'package:get_x/Services/Common/api_service.dart';
 import 'package:get_x/Services/Common/config.dart';
 import 'package:get_x/models/customer.dart';
@@ -10,13 +8,16 @@ class CustomerAPI {
   CustomerAPI() : api = ApiService();
 
   Future<List<Customer>> getCustomer(int? page) async {
-    Uri url = page != null
-        ? Uri.parse("${Config.url}/customers?page=$page")
-        : Uri.parse("${Config.url}/customers");
+    String url = page != null
+        ? ("${Config.domainUrl}${Config.allCustomer}?page=$page")
+        : ("${Config.domainUrl}${Config.allCustomer}");
 
     final response = await api.get(url);
     final body = json.decode(response.body);
-    APIResponse apiResponse = APIResponse.parseJson(body);
+    _APIResponse apiResponse = _APIResponse.parseJson(body);
+    if(!apiResponse.ok){
+      return [];
+    }
     final listbody = apiResponse.data as List<dynamic>;
     List<Customer> customerLists =
         listbody.map((e) => Customer.fromJson(e)).toList();
@@ -24,10 +25,9 @@ class CustomerAPI {
   }
 
   Future<Customer?> createCustomer(Customer customer) async {
-    final response = await api.post(Uri.parse("${Config.url}/customers"),
-        body: jsonEncode(customer.toJson()));
+    final response = await api.post(("${Config.domainUrl}${Config.customerCreate}"),customer.toJson());
     final body = (json.decode(response.body));
-    APIResponse apiResponse = APIResponse.parseJson(body);
+    _APIResponse apiResponse = _APIResponse.parseJson(body);
     if (!apiResponse.ok) {
       return null;
     }
@@ -38,10 +38,10 @@ class CustomerAPI {
 
   Future<Customer?> updateCustomer(Customer customer) async {
     final response = await api.put(
-        Uri.parse("${Config.url}/customers/${customer.id}"),
-        body: jsonEncode(customer.toJson()));
+        ("${Config.domainUrl}${Config.customerUpdate}"),
+        (customer.toJson()));
     final body = (json.decode(response.body));
-    APIResponse apiResponse = APIResponse.parseJson(body);
+    _APIResponse apiResponse = _APIResponse.parseJson(body);
     if (!apiResponse.ok) {
       return null;
     }
@@ -51,43 +51,43 @@ class CustomerAPI {
   }
 
   Future<bool> deleteCustomer(int id) async {
-    final response = await api.delete(Uri.parse("${Config.url}/customers/$id"));
+    final response = await api.delete(("${Config.domainUrl}${Config.customerDelete}/$id"));
     final body = (json.decode(response.body));
-    APIResponse apiResponse = APIResponse.parseJson(body);
+    _APIResponse apiResponse = _APIResponse.parseJson(body);
     return apiResponse.ok;
   }
 
   Future<bool> patchDeleteCustomer(List<int> ids) async {
     String items = ids.join(",");
     final response =
-        await api.delete(Uri.parse("${Config.url}/customers?items=${(items)}"));
+        await api.delete(("${Config.domainUrl}${Config.customerPatchDelete}?items=${(items)}"));
     final body = json.decode(response.body);
-    APIResponse apiResponse = APIResponse.parseJson(body);
+    _APIResponse apiResponse = _APIResponse.parseJson(body);
     return apiResponse.ok;
   }
 }
 
-class APIResponse {
+class _APIResponse {
   int code;
   Object? data;
   bool ok;
   String message;
   Pagination? pagination;
 
-  APIResponse(
+  _APIResponse(
       {required this.code,
       required this.data,
       required this.ok,
       required this.message});
 
-  factory APIResponse.parseJson(Map<String, dynamic> json) {
-    final api = APIResponse(
+  factory _APIResponse.parseJson(Map<String, dynamic> json) {
+    final api = _APIResponse(
       code: json["code"],
       data: json["data"],
       ok: json["ok"],
       message: json["message"],
     );
-    if (json["pagination"] != null || json["pagination"]) {
+    if (json["pagination"] != null) {
       api.pagination = Pagination.parseJson(json["pagination"]);
     }
     return api;
