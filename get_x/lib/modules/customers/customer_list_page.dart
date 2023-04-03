@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x/components/delete_customer_dialog.dart';
-import 'package:get_x/components/noti_bar.dart';
+import 'package:get_x/Screens/Common/delete_customer_dialog.dart';
+import 'package:get_x/Screens/Common//noti_bar.dart';
 import 'package:get_x/models/customer.dart';
 import 'package:get_x/Modules/customers/customer_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_x/Modules/customers/customer_controller.dart';
+
+import '../../routes/app_routes.dart';
 
 class CustomerListPage extends StatelessWidget {
   final CustomerController customerController = Get.put(CustomerController());
@@ -31,11 +33,17 @@ class CustomerListPage extends StatelessWidget {
             controller: controller.scrollController,
             itemCount: controller.getCustomerList.length + more,
             itemBuilder: (context, index) {
-              if(controller.isMoreLoading.value && index == controller.getCustomerList.length){
-                return const Center(child: Padding(padding: EdgeInsets.all(15),child: CircularProgressIndicator(),),);
+              if (controller.isMoreLoading.value &&
+                  index == controller.getCustomerList.length) {
+                return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(15),
+                    child: CircularProgressIndicator(),
+                  ),
+                );
               }
               Customer customer = controller.getCustomerList[index];
-              
+
               return Card(
                 elevation: 2.0,
                 shape: RoundedRectangleBorder(
@@ -89,13 +97,13 @@ class CustomerListPage extends StatelessWidget {
               );
             },
           );
-          
+
           return listview;
         }),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            // Get.toNamed(AppRoutes.createCustomer);
-            NotiBar().show("title", "message", "noti");
+            Get.toNamed(AppRoutes.createCustomer);
+            //NotiBar().show("title", "message", "noti");
           },
           child: const Icon(Icons.add),
         ),
