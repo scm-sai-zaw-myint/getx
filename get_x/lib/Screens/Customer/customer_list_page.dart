@@ -7,7 +7,7 @@ import 'package:get_x/models/customer.dart';
 import 'package:get_x/Screens/Customer/customer_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_x/Modules/customers/customer_controller.dart';
-import 'package:get_x/routes/app_routes.dart';
+import 'package:get_x/Screens/Routes/app_routes.dart';
 
 class CustomerListPage extends StatelessWidget {
   final CustomerController customerController = Get.put(CustomerController());

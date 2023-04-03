@@ -6,5 +6,4 @@ class CustomerBinding extends Bindings{
   void dependencies() {
     Get.lazyPut(() => CustomerController());
   }
-  
 }
