@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget{
       title: "GetX state management",
       home: const HomePage(),
       getPages: AppPages.pages,
+      debugShowCheckedModeBanner: false
     );
   }
 }

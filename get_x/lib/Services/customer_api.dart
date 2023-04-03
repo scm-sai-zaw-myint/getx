@@ -6,7 +6,6 @@ import 'package:get_x/models/customer.dart';
 class CustomerAPI {
   final ApiService api;
   CustomerAPI() : api = ApiService();
-
   Future<List<Customer>> getCustomer(int? page) async {
     String url = page != null
         ? ("${Config.domainUrl}${Config.allCustomer}?page=$page")
@@ -15,7 +14,7 @@ class CustomerAPI {
     final response = await api.get(url);
     final body = json.decode(response.body);
     _APIResponse apiResponse = _APIResponse.parseJson(body);
-    if(!apiResponse.ok){
+    if (!apiResponse.ok) {
       return [];
     }
     final listbody = apiResponse.data as List<dynamic>;
@@ -25,7 +24,8 @@ class CustomerAPI {
   }
 
   Future<Customer?> createCustomer(Customer customer) async {
-    final response = await api.post(("${Config.domainUrl}${Config.customerCreate}"),customer.toJson());
+    final response = await api.post(
+        ("${Config.domainUrl}${Config.customerCreate}"), customer.toJson());
     final body = (json.decode(response.body));
     _APIResponse apiResponse = _APIResponse.parseJson(body);
     if (!apiResponse.ok) {
@@ -38,8 +38,7 @@ class CustomerAPI {
 
   Future<Customer?> updateCustomer(Customer customer) async {
     final response = await api.put(
-        ("${Config.domainUrl}${Config.customerUpdate}"),
-        (customer.toJson()));
+        ("${Config.domainUrl}${Config.customerUpdate}"), (customer.toJson()));
     final body = (json.decode(response.body));
     _APIResponse apiResponse = _APIResponse.parseJson(body);
     if (!apiResponse.ok) {
@@ -51,7 +50,8 @@ class CustomerAPI {
   }
 
   Future<bool> deleteCustomer(int id) async {
-    final response = await api.delete(("${Config.domainUrl}${Config.customerDelete}/$id"));
+    final response =
+        await api.delete(("${Config.domainUrl}${Config.customerDelete}/$id"));
     final body = (json.decode(response.body));
     _APIResponse apiResponse = _APIResponse.parseJson(body);
     return apiResponse.ok;
@@ -59,8 +59,8 @@ class CustomerAPI {
 
   Future<bool> patchDeleteCustomer(List<int> ids) async {
     String items = ids.join(",");
-    final response =
-        await api.delete(("${Config.domainUrl}${Config.customerPatchDelete}?items=${(items)}"));
+    final response = await api.delete(
+        ("${Config.domainUrl}${Config.customerPatchDelete}?items=${(items)}"));
     final body = json.decode(response.body);
     _APIResponse apiResponse = _APIResponse.parseJson(body);
     return apiResponse.ok;
