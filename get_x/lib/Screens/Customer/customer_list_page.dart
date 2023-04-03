@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x/components/delete_customer_dialog.dart';
-// import 'package:get_x/components/noti_bar.dart';
+import 'package:get_x/Screens/Common/delete_customer_dialog.dart';
 import 'package:get_x/models/customer.dart';
 import 'package:get_x/Screens/Customer/customer_form.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
