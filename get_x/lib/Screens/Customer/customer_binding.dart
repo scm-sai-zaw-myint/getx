@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_x/Modules/customers/customer_controller.dart';
+import 'package:get_x/Services/Customer/customer_controller.dart';
 
 class CustomerBinding extends Bindings{
   @override
