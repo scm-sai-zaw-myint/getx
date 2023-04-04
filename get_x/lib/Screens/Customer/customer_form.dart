@@ -4,7 +4,7 @@ import 'package:get_x/Screens/Common/common_widget.dart';
 import 'package:get_x/Screens/Common/delete_customer_dialog.dart';
 import 'package:get_x/Screens/Common//noti_bar.dart';
 import 'package:get_x/models/customer.dart';
-import 'package:get_x/Modules/customers/customer_controller.dart';
+import 'package:get_x/modules/customers/customer_controller.dart';
 
 class CustomerForm extends StatefulWidget {
   final bool isRegis;
